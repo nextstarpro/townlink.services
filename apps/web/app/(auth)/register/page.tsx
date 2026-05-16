@@ -1,0 +1,1 @@
+export default function RegisterPage() { return <div><h2 className="font-[family-name:var(--font-dm-serif)] text-xl text-[var(--tl-green)] mb-2">Create Account</h2><p className="text-[var(--tl-muted)] text-sm">Register placeholder.</p></div>; }

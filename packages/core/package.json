@@ -1,0 +1,15 @@
+{
+  "name": "@townlink/core",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@townlink/config": "workspace:*",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,1 @@
+export default function MobileFeed() { return <div className="px-4 pt-6"><h1 className="text-xl font-semibold text-[var(--tl-green)]">Feed</h1><p className="text-sm text-[var(--tl-muted)] mt-2">Mobile feed placeholder.</p></div>; }

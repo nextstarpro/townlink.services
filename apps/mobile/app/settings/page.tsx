@@ -1,0 +1,1 @@
+export default function MobileSettings() { return <div className="px-4 pt-6"><h1 className="text-xl font-semibold text-[var(--tl-green)]">Settings</h1><p className="text-sm text-[var(--tl-muted)] mt-2">Mobile settings placeholder.</p></div>; }

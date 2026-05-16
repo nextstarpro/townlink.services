@@ -1,0 +1,54 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js & builds
+.next/
+out/
+dist/
+build/
+.tsbuildinfo
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+*.log
+.vercel
+.pnpm-debug.log*
+
+# env files
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Project context & planning
+*.txt
+template.html
+icon.png
+
+# Mobile & Security
+*.keystore
+*.jks
+.capgo
+.capgo-credentials.json
+/capacitor/node_modules/
+
+# Agent configurations
+.agents/
+AGENTS.md
+CLAUDE.md
+

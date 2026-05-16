@@ -1,0 +1,1 @@
+export default function MobileOnboarding() { return <div className="px-4 pt-10 text-center"><h1 className="text-xl font-semibold text-[var(--tl-green)]">Welcome to TownLink</h1><p className="text-sm text-[var(--tl-muted)] mt-2">Mobile onboarding placeholder.</p></div>; }

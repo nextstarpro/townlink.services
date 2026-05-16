@@ -1,0 +1,16 @@
+{
+  "name": "townlink",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @townlink/web dev",
+    "dev:mobile": "pnpm --filter @townlink/mobile dev",
+    "build": "pnpm -r build",
+    "build:web": "pnpm --filter @townlink/web build",
+    "build:mobile": "pnpm --filter @townlink/mobile build",
+    "mobile:sandbox": "pnpm --filter @townlink/mobile sandbox:push",
+    "mobile:prod": "pnpm --filter @townlink/mobile prod:push",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r exec -- node -e \"['.next','out','dist','node_modules'].forEach(d => require('fs').rmSync(d, {recursive:true, force:true}))\""
+  }
+}

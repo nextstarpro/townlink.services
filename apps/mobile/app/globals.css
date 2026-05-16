@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "@townlink/ui/styles";
+
+/* Mobile-specific: safe area + full screen */
+html, body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}

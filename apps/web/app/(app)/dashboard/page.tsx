@@ -1,0 +1,1 @@
+export default function DashboardPage() { return <div><h1 className="font-[family-name:var(--font-dm-serif)] text-2xl text-[var(--tl-green)] mb-4">Dashboard</h1><p className="text-[var(--tl-muted)] text-sm">Dashboard placeholder.</p></div>; }
