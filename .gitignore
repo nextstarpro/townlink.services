@@ -46,7 +46,7 @@ lerna-debug.log*
 *.template
 *.html
 template.html
-icon.png
+/icon.png
 
 # Mobile & Security
 *.keystore
