@@ -9,7 +9,7 @@ import { Step4Rates } from "./Step4Rates";
 import { Step5Review } from "./Step5Review";
 import { SuccessState } from "./SuccessState";
 
-export type FormData = {
+export type RegistrationFormData = {
   // Step 1
   countryCode: string;
   phone: string;
@@ -41,7 +41,7 @@ export type FormData = {
   advancePercent: string;
 };
 
-const initialFormData: FormData = {
+const initialFormData: RegistrationFormData = {
   countryCode: "+233", phone: "", fullPhone: "", verifyToken: "",
   providerName: "", businessName: "", email: "", ghanaCard: "", ghanaCardExpiry: "", region: "", city: "",
   category: "", services: [], description: "", experience: "",
@@ -60,9 +60,9 @@ const stepMeta = [
 export function RegistrationWizard() {
   const [step, setStep] = useState<number>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<RegistrationFormData>(initialFormData);
 
-  const updateFormData = (data: Partial<FormData>) => {
+  const updateFormData = (data: Partial<RegistrationFormData>) => {
     setFormData(prev => ({ ...prev, ...data }));
   };
 

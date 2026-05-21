@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FormData } from "./RegistrationWizard";
+import { RegistrationFormData } from "./RegistrationWizard";
 import { AppButton } from "@townlink/ui";
 
 type Props = {
-  data: FormData;
+  data: RegistrationFormData;
   onNext: () => void;
   onResend: () => void;
 };

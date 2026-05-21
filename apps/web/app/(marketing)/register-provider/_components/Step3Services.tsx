@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { FormData } from "./RegistrationWizard";
+import { RegistrationFormData } from "./RegistrationWizard";
 import { AppButton } from "@townlink/ui";
 import { serviceMap, ServiceCategory } from "../_data/serviceMap";
 
 type Props = {
-  data: FormData;
-  updateData: (d: Partial<FormData>) => void;
+  data: RegistrationFormData;
+  updateData: (d: Partial<RegistrationFormData>) => void;
   onNext: () => void;
   onBack: () => void;
 };
