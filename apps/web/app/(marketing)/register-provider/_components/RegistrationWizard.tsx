@@ -12,6 +12,7 @@ import { SuccessState } from "./SuccessState";
 export type FormData = {
   // Step 1
   countryCode: string;
+  phone: string;
   fullPhone: string;
   verifyToken: string;
   // Step 2
