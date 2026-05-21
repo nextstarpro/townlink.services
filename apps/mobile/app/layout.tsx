@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
 import { CapgoInit } from "./CapgoInit";
+import "@fontsource/mona-sans/400.css";
+import "@fontsource/mona-sans/500.css";
+import "@fontsource/mona-sans/600.css";
+import "@fontsource/mona-sans/700.css";
+import "@fontsource/mona-sans/800.css";
 import "./globals.css";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["300", "400", "500", "600"],
-});
-
 export const metadata: Metadata = {
   title: "TownLink",
   description: "Ghana's Trusted Service Directory",
@@ -25,8 +22,8 @@ export default function MobileLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={dmSans.variable}>
-      <body className="bg-[var(--tl-cream)] pb-16">
+    <html lang="en" className="font-sans antialiased text-[var(--color-text-primary)]">
+      <body className="bg-[var(--color-bg-light)] pb-16">
         <CapgoInit />
         <main className="min-h-screen">{children}</main>
         {/* Bottom Tab Bar */}

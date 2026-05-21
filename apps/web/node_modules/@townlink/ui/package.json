@@ -16,5 +16,10 @@
     "@townlink/config": "workspace:*",
     "@types/react": "^19",
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.2.1",
+    "@fontsource/mona-sans": "^5.2.8",
+    "framer-motion": "^12.38.0"
   }
 }

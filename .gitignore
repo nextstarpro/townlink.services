@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.*
@@ -10,33 +10,41 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# Testing
 /coverage
 
-# next.js & builds
+# Next.js & Builds
 .next/
 out/
 dist/
 build/
 .tsbuildinfo
 next-env.d.ts
+.turbo/
 
-# misc
-.DS_Store
+# Misc & Logs
 *.pem
 *.log
-.vercel
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 .pnpm-debug.log*
+.vercel/
 
-# env files
+# Environment Variables
 .env*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+!.env.example
 
-# Project context & planning
+# Temporary & Planning Files (Requested by User)
 *.txt
+*.template
+*.html
 template.html
 icon.png
 
@@ -46,9 +54,28 @@ icon.png
 .capgo
 .capgo-credentials.json
 /capacitor/node_modules/
+/shots/
 
 # Agent configurations
 .agents/
 AGENTS.md
 CLAUDE.md
 
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.local

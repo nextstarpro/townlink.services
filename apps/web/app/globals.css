@@ -1,2 +1,6 @@
 @import "tailwindcss";
 @import "@townlink/ui/styles";
+
+@source "../../../packages/ui/src/**/*.tsx";
+@source "../../packages/ui/src/**/*.tsx";
+

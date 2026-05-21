@@ -9,9 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@fontsource/mona-sans": "^5.2.8",
+    "@townlink/api-client": "workspace:*",
     "@townlink/core": "workspace:*",
     "@townlink/ui": "workspace:*",
-    "@townlink/api-client": "workspace:*",
     "@townlink/validators": "workspace:*",
     "framer-motion": "^12.38.0",
     "lenis": "^1.3.23",

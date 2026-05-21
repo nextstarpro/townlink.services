@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import "@fontsource/mona-sans/400.css";
+import "@fontsource/mona-sans/500.css";
+import "@fontsource/mona-sans/600.css";
+import "@fontsource/mona-sans/700.css";
+import "@fontsource/mona-sans/800.css";
 import "./globals.css";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["300", "400", "500", "600"],
-});
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  variable: "--font-dm-serif",
-  weight: "400",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -27,8 +19,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${dmSerif.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className="font-sans antialiased text-text-primary">
+      <body>
+        {children}
+        <script id="chatway" async src="https://cdn.chatway.app/widget.js?id=Og41Z96qnep0"></script>
+      </body>
     </html>
   );
 }

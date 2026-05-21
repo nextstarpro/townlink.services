@@ -1,4 +1,4 @@
-﻿import type { NextConfig } from "next";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/.netlify/functions/:path*',
+        destination: 'https://services.townlinkglobal.com/.netlify/functions/:path*',
+      },
+    ];
   },
 };
 
