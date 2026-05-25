@@ -33,7 +33,11 @@ export function Step1Phone({ data, updateData, onNext }: Props) {
       const result = await res.json().catch(() => ({}));
       setIsSending(false);
       if (result.success || res.ok) {
-        if (result.token) updateData({ verifyToken: result.token });
+        updateData({ 
+          verifyToken: result.token || "",
+          isReturning: !!result.isReturning,
+          existingRecordId: result.recordId || ""
+        });
         onNext();
       } else {
         setError(result.error || "Failed to send code.");

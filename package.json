@@ -12,5 +12,11 @@
     "mobile:prod": "pnpm --filter @townlink/mobile prod:push",
     "lint": "pnpm -r lint",
     "clean": "pnpm -r exec -- node -e \"['.next','out','dist','node_modules'].forEach(d => require('fs').rmSync(d, {recursive:true, force:true}))\""
+  },
+  "dependencies": {
+    "airtable": "^0.12.2"
+  },
+  "devDependencies": {
+    "netlify-cli": "^26.0.2"
   }
 }

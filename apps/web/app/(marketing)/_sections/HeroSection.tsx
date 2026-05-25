@@ -18,9 +18,11 @@ export function HeroSection() {
           professionals — at home and in the diaspora.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <AppButton variant="primary" size="lg" className="w-full sm:w-auto">
-            Find a Provider
-          </AppButton>
+          <a href="/providers" className="w-full sm:w-auto">
+            <AppButton variant="primary" size="lg" className="w-full">
+              Find a Provider
+            </AppButton>
+          </a>
           <a href="/register-provider" className="w-full sm:w-auto">
             <AppButton variant="secondary" size="lg" className="w-full">
               Become a Provider

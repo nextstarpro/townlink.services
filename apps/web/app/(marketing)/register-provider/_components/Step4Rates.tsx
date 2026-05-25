@@ -102,6 +102,85 @@ export function Step4Rates({ data, updateData, onNext, onBack }: Props) {
           </div>
         </div>
 
+        {/* Payment Details */}
+        <div className="pt-2 border-t border-border-light mt-4">
+          <label className="block text-sm font-medium text-text-heavy mb-1.5 mt-4">
+            Preferred Payment Method
+          </label>
+          <select 
+            value={data.preferredPayment}
+            onChange={(e) => updateData({ preferredPayment: e.target.value })}
+            className="w-full px-3.5 py-3 border border-border-light rounded-lg font-sans text-sm outline-none transition-colors focus:border-brand-primary bg-white text-text-heavy"
+          >
+            <option value="">Select method...</option>
+            <option value="MTN MoMo">MTN MoMo</option>
+            <option value="Vodafone Cash">Vodafone Cash</option>
+            <option value="AirtelTigo Money">AirtelTigo Money</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+          </select>
+          {errors.preferredPayment && <p className="text-xs text-red-500 mt-1">{errors.preferredPayment}</p>}
+        </div>
+
+        {['MTN MoMo', 'Vodafone Cash', 'AirtelTigo Money'].includes(data.preferredPayment) && (
+          <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div>
+              <label className="block text-sm font-medium text-text-heavy mb-1.5">
+                MoMo Number
+              </label>
+              <input 
+                type="tel" 
+                value={data.momoNumber}
+                onChange={(e) => updateData({ momoNumber: e.target.value })}
+                placeholder="e.g. 0244123456"
+                className="w-full px-3.5 py-2.5 border border-border-light rounded-lg font-sans text-sm outline-none transition-colors focus:border-brand-primary bg-white text-text-heavy"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-heavy mb-1.5">
+                MoMo Registered Name <span className="font-normal text-text-muted text-xs">(optional)</span>
+              </label>
+              <input 
+                type="text" 
+                value={data.momoName}
+                onChange={(e) => updateData({ momoName: e.target.value })}
+                placeholder="Name on your MoMo account"
+                className="w-full px-3.5 py-2.5 border border-border-light rounded-lg font-sans text-sm outline-none transition-colors focus:border-brand-primary bg-white text-text-heavy"
+              />
+            </div>
+          </div>
+        )}
+
+        {data.preferredPayment === 'Bank Transfer' && (
+          <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div>
+              <label className="block text-sm font-medium text-text-heavy mb-1.5">
+                Bank Name
+              </label>
+              <input 
+                type="text" 
+                value={data.bankName}
+                onChange={(e) => updateData({ bankName: e.target.value })}
+                placeholder="e.g. Ecobank Ghana"
+                className="w-full px-3.5 py-2.5 border border-border-light rounded-lg font-sans text-sm outline-none transition-colors focus:border-brand-primary bg-white text-text-heavy"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-heavy mb-1.5">
+                Account Number
+              </label>
+              <input 
+                type="text" 
+                value={data.accountNumber}
+                onChange={(e) => updateData({ accountNumber: e.target.value })}
+                placeholder="Your account number"
+                className="w-full px-3.5 py-2.5 border border-border-light rounded-lg font-sans text-sm outline-none transition-colors focus:border-brand-primary bg-white text-text-heavy"
+              />
+            </div>
+          </div>
+        )}
+
       </div>
 
       <div className="mt-8 flex gap-3">

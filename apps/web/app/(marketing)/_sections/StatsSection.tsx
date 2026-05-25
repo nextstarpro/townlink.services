@@ -10,14 +10,15 @@ export function StatsSection() {
         
         {/* Left Side - Customers */}
         <div className="flex-1 bg-white/90 backdrop-blur-md p-8 md:p-12 flex flex-col justify-center md:border-r border-border-light">
-          <h3 className="font-serif text-2xl md:text-3xl text-brand-dark mb-3">Looking for a professional?</h3>
+          <div className="text-3xl mb-4">🔍</div>
+          <h3 className="font-serif text-2xl md:text-3xl text-brand-dark mb-3">I need a service</h3>
           <p className="text-text-muted text-sm md:text-base mb-8 max-w-md leading-relaxed">
-            Browse hundreds of verified experts across Ghana. From plumbers to tech experts, find the right person for the job instantly.
+            Find trusted local professionals across Ghana. Chat with us on WhatsApp and we'll connect you to the right person for the job instantly.
           </p>
           <div>
-            <a href="/providers">
+            <a href="https://wa.me/233274870179?text=Hello%20TownLink%2C%20I%20need%20a%20service%20provider" target="_blank" rel="noopener noreferrer">
               <AppButton variant="primary" className="shadow-lg shadow-brand-primary/20 hover:-translate-y-1 transition-transform">
-                Browse Directory →
+                Chat on WhatsApp →
               </AppButton>
             </a>
           </div>
@@ -28,14 +29,15 @@ export function StatsSection() {
           {/* Abstract dark shapes for texture */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
           
-          <h3 className="font-serif text-2xl md:text-3xl text-white mb-3 relative z-10">Are you a skilled expert?</h3>
+          <div className="text-3xl mb-4 relative z-10">🛠️</div>
+          <h3 className="font-serif text-2xl md:text-3xl text-white mb-3 relative z-10">I'm a provider</h3>
           <p className="text-white/70 text-sm md:text-base mb-8 max-w-md leading-relaxed relative z-10">
-            Join TownLink for free. Get discovered by local and diaspora clients, build your reputation, and grow your business.
+            List your services for free and get found by clients at home and in the diaspora. Build your reputation, and grow your business.
           </p>
           <div className="relative z-10">
             <a href="/register-provider">
               <AppButton variant="inverted" className="text-brand-dark hover:-translate-y-1 transition-transform">
-                Register as Provider
+                Register my business →
               </AppButton>
             </a>
           </div>

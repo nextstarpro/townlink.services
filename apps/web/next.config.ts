@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/.netlify/functions/:path*',
-        destination: 'https://services.townlinkglobal.com/.netlify/functions/:path*',
+        destination: '/api/:path*',
       },
     ];
   },

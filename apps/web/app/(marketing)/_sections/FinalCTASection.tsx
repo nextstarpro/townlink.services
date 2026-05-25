@@ -44,13 +44,13 @@ export function FinalCTASection() {
           </div>
 
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-10 tracking-tight leading-tight">
-            Find top rated certified<br className="hidden md:block" /> experts in your area
+            Find top rated service providers<br className="hidden md:block" /> in your area
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/providers">
               <AppButton variant="primary" size="lg" className="px-8 bg-[#10b981] hover:bg-[#059669] border-none text-white font-semibold">
-                Find experts &rarr;
+                Find Providers &rarr;
               </AppButton>
             </a>
             <a href="/register-provider">

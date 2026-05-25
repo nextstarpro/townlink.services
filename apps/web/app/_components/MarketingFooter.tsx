@@ -1,13 +1,17 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 export function MarketingFooter() {
   return (
     <footer className="bg-bg-light pt-16 pb-8 px-6 mt-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="col-span-1 md:col-span-1">
-          <div className="font-bold text-2xl tracking-tight text-text-heavy mb-4">
+          <div className="flex items-center gap-3 font-bold text-2xl tracking-tight text-text-heavy mb-4">
+            <div className="relative w-8 h-8 overflow-hidden rounded-full border border-border-light">
+              <Image src="/icon.png" alt="TownLink" fill className="object-cover" sizes="32px" />
+            </div>
             TownLink
           </div>
           <p className="text-text-muted text-sm leading-relaxed mb-6">

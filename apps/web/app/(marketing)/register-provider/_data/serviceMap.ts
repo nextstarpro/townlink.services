@@ -23,7 +23,7 @@ export const serviceMap: Record<ServiceCategory, string[]> = {
   'Transport & Logistics': ['Transportation','Delivery & Courier','Moving & Relocation','Towing Services','Driver Services'],
   'Education & Training': ['Education & Tutoring','Music & Dance Lessons','Driving School','Computer Training','Language Classes'],
   'Health & Medical': ['Health & Medical','Home Nursing','Physiotherapy','Lab Services','Ambulance Services'],
-  'Tech & Digital': ['IT & Technology','Phone & Computer Repairs','Web & App Development','Graphic Design','Social Media Management','CCTV & Security Systems'],
+  'Tech & Digital': ['IT & Networking','Phone & Computer Repairs','Web & App Development','Graphic Design','Social Media Management','CCTV & Security Systems'],
   'Automotive': ['Auto Mechanic','Car Wash & Detailing','Auto Electrician','Panel Beating & Spraying','Vulcanizer Services'],
   'Construction & Engineering': ['Building & Construction','Architecture & Design','Surveying Services','Structural Engineering'],
   'Tailoring & Fashion': ['Fashion & Tailoring','Kente Weaving','Embroidery Services','Alterations & Repairs'],

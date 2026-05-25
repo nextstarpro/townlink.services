@@ -79,3 +79,6 @@ Thumbs.db
 *.njsproj
 *.sln
 *.local
+
+# Local Netlify folder
+.netlify

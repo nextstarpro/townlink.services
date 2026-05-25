@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export function SuccessState() {
+export function SuccessState({ isReturning }: { isReturning?: boolean }) {
   const shareProvider = () => {
     const msg = encodeURIComponent("Are you a service provider in Ghana? 🇬🇭\n\nList your business for FREE on TownLink Services and get found by clients at home and in the diaspora.\n\nRegister here 👉 https://services.townlinkglobal.com");
     window.open(`https://wa.me/?text=${msg}`, '_blank');
@@ -13,10 +13,13 @@ export function SuccessState() {
       <div className="w-16 h-16 bg-brand-secondary/20 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl border border-brand-secondary/30 shadow-sm">
         🎉
       </div>
-      <h2 className="font-serif text-3xl text-brand-primary mb-3">You're All Set!</h2>
+      <h2 className="font-serif text-3xl text-brand-primary mb-3">
+        {isReturning ? "Profile Updated!" : "You're All Set!"}
+      </h2>
       <p className="text-text-muted text-sm md:text-base leading-relaxed max-w-sm mx-auto mb-8">
-        Your registration has been submitted and is pending verification. 
-        Our team will review your details and you will receive a WhatsApp message once your profile is live.
+        {isReturning 
+          ? "Your listing has been updated and is under review. We'll notify you on WhatsApp once the changes are live."
+          : "Your registration has been submitted and is pending verification. Our team will review your details and you will receive a WhatsApp message once your profile is live."}
       </p>
       
       <button 

@@ -15,6 +15,8 @@ export type RegistrationFormData = {
   phone: string;
   fullPhone: string;
   verifyToken: string;
+  isReturning: boolean;
+  existingRecordId: string;
   // Step 2
   providerName: string;
   businessName: string;
@@ -37,15 +39,17 @@ export type RegistrationFormData = {
   preferredPayment: string;
   momoNumber: string;
   momoName: string;
+  bankName: string;
+  accountNumber: string;
   advanceRequired: string;
   advancePercent: string;
 };
 
 const initialFormData: RegistrationFormData = {
-  countryCode: "+233", phone: "", fullPhone: "", verifyToken: "",
+  countryCode: "+233", phone: "", fullPhone: "", verifyToken: "", isReturning: false, existingRecordId: "",
   providerName: "", businessName: "", email: "", ghanaCard: "", ghanaCardExpiry: "", region: "", city: "",
   category: "", services: [], description: "", experience: "",
-  availability: "", diaspora: false, minPrice: "", maxPrice: "", priceUnit: "per job", preferredPayment: "", momoNumber: "", momoName: "", advanceRequired: "", advancePercent: "50"
+  availability: "", diaspora: false, minPrice: "", maxPrice: "", priceUnit: "per job", preferredPayment: "", momoNumber: "", momoName: "", bankName: "", accountNumber: "", advanceRequired: "", advancePercent: "50"
 };
 
 const stepMeta = [
@@ -71,7 +75,7 @@ export function RegistrationWizard() {
   if (isSubmitted) {
     return (
       <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden">
-        <SuccessState />
+        <SuccessState isReturning={formData.isReturning} />
       </div>
     );
   }
@@ -99,7 +103,7 @@ export function RegistrationWizard() {
       {/* Step Content Area */}
       <div className="p-6 pt-2">
         {step === 1 && <Step1Phone data={formData} updateData={updateFormData} onNext={() => setStep(1.5)} />}
-        {step === 1.5 && <Step1bOTP data={formData} onNext={() => setStep(2)} onResend={() => setStep(1)} />}
+        {step === 1.5 && <Step1bOTP data={formData} updateData={updateFormData} onNext={() => setStep(2)} onResend={() => setStep(1)} />}
         {step === 2 && <Step2Details data={formData} updateData={updateFormData} onNext={() => setStep(3)} />}
         {step === 3 && <Step3Services data={formData} updateData={updateFormData} onNext={() => setStep(4)} onBack={() => setStep(2)} />}
         {step === 4 && <Step4Rates data={formData} updateData={updateFormData} onNext={() => setStep(5)} onBack={() => setStep(3)} />}

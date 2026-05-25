@@ -58,7 +58,7 @@ export const SERVICE_MAP: Record<string, string[]> = {
     "Ambulance Services",
   ],
   "Tech & Digital": [
-    "IT & Technology",
+    "IT & Networking",
     "Phone & Computer Repairs",
     "Web & App Development",
     "Graphic Design",

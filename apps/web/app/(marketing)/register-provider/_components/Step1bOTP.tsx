@@ -6,11 +6,12 @@ import { AppButton } from "@townlink/ui";
 
 type Props = {
   data: RegistrationFormData;
+  updateData: (d: Partial<RegistrationFormData>) => void;
   onNext: () => void;
   onResend: () => void;
 };
 
-export function Step1bOTP({ data, onNext, onResend }: Props) {
+export function Step1bOTP({ data, updateData, onNext, onResend }: Props) {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
@@ -40,6 +41,48 @@ export function Step1bOTP({ data, onNext, onResend }: Props) {
       const result = await res.json().catch(() => ({}));
       setIsVerifying(false);
       if (result.success || res.ok) {
+        if (data.isReturning && result.record) {
+          const r = result.record;
+          const prefill: Partial<RegistrationFormData> = {};
+          if (r['Provider Name']) prefill.providerName = r['Provider Name'];
+          if (r['Business Name']) prefill.businessName = r['Business Name'];
+          if (r['Email']) prefill.email = r['Email'];
+          if (r['Ghana Card Number']) prefill.ghanaCard = r['Ghana Card Number'];
+          if (r['Ghana Card Expiry Date']) prefill.ghanaCardExpiry = r['Ghana Card Expiry Date'];
+          
+          if (r['Regions Served'] && r['Regions Served'].length > 0) prefill.region = r['Regions Served'][0];
+          else if (r['Region']) prefill.region = r['Region'];
+          
+          if (r['City / Town']) prefill.city = r['City / Town'];
+          
+          if (r['Service Categories'] && r['Service Categories'].length > 0) prefill.category = r['Service Categories'][0];
+          else if (r['Service Category']) prefill.category = r['Service Category'];
+          
+          if (r['Specific Services']) {
+            const rawText = r['Specific Services'];
+            const parts = rawText.split('\n\n');
+            const servicesStr = parts[0] || "";
+            prefill.description = parts.slice(1).join('\n\n') || "";
+            prefill.services = servicesStr.split(', ').map((s: string) => s.trim()).filter(Boolean);
+          }
+          if (r['Years of Experience']) prefill.experience = String(r['Years of Experience']);
+          if (r['Availability']) prefill.availability = r['Availability'];
+          if (r['Serves Diaspora Clients']) prefill.diaspora = true;
+          if (r['Min Price (GHS)']) prefill.minPrice = String(r['Min Price (GHS)']);
+          if (r['Max Price (GHS)']) prefill.maxPrice = String(r['Max Price (GHS)']);
+          if (r['Price Unit']) prefill.priceUnit = r['Price Unit'];
+          
+          if (r['Preferred Payment Method']) prefill.preferredPayment = r['Preferred Payment Method'];
+          if (r['MoMo Number']) prefill.momoNumber = r['MoMo Number'];
+          if (r['MoMo Name']) prefill.momoName = r['MoMo Name'];
+          if (r['Advance Payment Required']) {
+            prefill.advanceRequired = "Yes";
+            if (r['Advance Percentage']) prefill.advancePercent = String(r['Advance Percentage']);
+          } else if (r['Advance Payment Required'] === false) {
+            prefill.advanceRequired = "No";
+          }
+          updateData(prefill);
+        }
         onNext();
       } else {
         setError(result.error || "Invalid code. Please try again.");

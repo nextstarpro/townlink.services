@@ -34,12 +34,16 @@ export function Step5Review({ data, onSubmit, onBack }: Props) {
       'Preferred Payment Method': data.preferredPayment,
       'MoMo Number': data.momoNumber,
       'MoMo Name': data.momoName,
+      'Bank Name': data.bankName,
+      'Account Number': data.accountNumber,
       'Advance Payment Required': data.advanceRequired === 'Yes',
       'Advance Percentage': data.advanceRequired === 'Yes' ? Number(data.advancePercent) : null,
       'Availability': data.availability,
       'Serves Diaspora Clients': data.diaspora,
       'Date Registered': new Date().toISOString().split('T')[0],
-      'Status': 'Pending'
+      'Status': 'Pending',
+      isReturning: data.isReturning,
+      existingRecordId: data.existingRecordId
     };
 
     try {
