@@ -87,7 +87,7 @@ We have implemented a custom 100% free OTA update pipeline that completely bypas
 
 **Prerequisite:** Ensure you have added a Fine-Grained GitHub Personal Access Token (with `Contents: Read and Write` permissions on this repository) to `apps/mobile/.env` as `GITHUB_TOKEN=github_pat_...`.
 
-**To push a live update to all users' phones without Google Play Store review:**
+#### Pushing a Live Update
 1. Navigate to the mobile app directory:
    ```bash
    cd apps/mobile
@@ -96,6 +96,27 @@ We have implemented a custom 100% free OTA update pipeline that completely bypas
    ```bash
    pnpm ota:push
    ```
-   *This command automatically bumps the version, builds the Next.js static export, zips the assets, and uploads the bundle directly to a GitHub Release as a deployment asset.*
+   *This command automatically bumps the version, builds the Next.js static export, zips the assets, computes a SHA256 checksum, and uploads the bundle to a GitHub Release.*
 3. Commit and push your changes to GitHub as normal.
    *Vercel will deploy the updated `apps/web/public/ota/latest.json` file. The mobile apps will query this endpoint on their next launch and seamlessly download the new update from the GitHub server.*
+
+#### Rolling Back a Broken Update
+If you push a broken update and need to revert to a previous version:
+```bash
+cd apps/mobile
+pnpm ota:rollback 8.0.3
+```
+Replace `8.0.3` with whatever version you want to roll back to. You can find all available versions at the [GitHub Releases page](https://github.com/nextstarpro/townlink.services/releases). After rolling back, commit and push so Vercel deploys the reverted `latest.json`.
+
+> **Automatic Safety Net:** The `@capgo/capacitor-updater` plugin has built-in crash protection. If a new update causes the app to crash before `notifyAppReady()` fires (within 10 seconds of launch), the plugin automatically rolls back to the previous working version on the user's phone — no action needed from you.
+
+#### How It Works Behind the Scenes
+1. `pnpm ota:push` builds the static export, zips `out/`, and computes a SHA256 checksum.
+2. The script creates a GitHub Release (e.g., `ota-v8.0.4`) and uploads `update.zip` as a release asset.
+3. It writes `apps/web/public/ota/latest.json` with `{version, url, checksum}`.
+4. After you `git push`, Vercel deploys the web app, making `latest.json` publicly available at `https://services.townlinkglobal.com/ota/latest.json`.
+5. On the user's next app launch, the Capgo updater plugin fetches `latest.json`, compares versions, downloads the zip from GitHub, verifies the SHA256 checksum, and applies the update silently.
+
+#### Storage
+Each push creates a new GitHub Release (~5-15MB each). GitHub has no hard cap on release storage. Old releases can be cleaned up anytime from the [Releases page](https://github.com/nextstarpro/townlink.services/releases).
+

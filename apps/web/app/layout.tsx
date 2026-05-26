@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   },
   description:
     "Find trusted service providers across Ghana. Connect with verified professionals for home services, construction, transport, beauty, repairs, events and more.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({

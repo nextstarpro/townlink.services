@@ -1,11 +1,14 @@
 import fs from 'fs';
 import path from 'path';
-import archiver from 'archiver';
+import crypto from 'crypto';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { ZipArchive } = require('archiver');
 
 const owner = 'nextstarpro';
 const repo = 'townlink.services';
 
-// Ensure GITHUB_TOKEN is present
+// ── 0. Ensure GITHUB_TOKEN is present ──────────────────────────────────────
 let GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 // Fallback: Manually read .env file since this is a vanilla Node script
@@ -28,38 +31,53 @@ const mobileDir = process.cwd();
 const packageJsonPath = path.join(mobileDir, 'package.json');
 const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
-// 1. Bump version
+// ── 1. Bump version (0.0.1 patch increment) ───────────────────────────────
+// Ensures semver format: e.g. "8.3.0" → "8.3.1", "8.0.1" → "8.0.2"
+// If version only has two parts (e.g. "8.3"), normalise to "8.3.0" first.
 const versionParts = pkg.version.split('.');
+while (versionParts.length < 3) versionParts.push('0');
 versionParts[2] = parseInt(versionParts[2], 10) + 1;
 const newVersion = versionParts.join('.');
 pkg.version = newVersion;
 fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2) + '\n');
 console.log(`✅ Bumped version to ${newVersion}`);
 
-// 2. Zip the out folder
+// ── 2. Verify the static export exists ─────────────────────────────────────
 const outDir = path.join(mobileDir, 'out');
-const zipPath = path.join(mobileDir, 'update.zip');
-
 if (!fs.existsSync(outDir)) {
   console.error("❌ Error: 'out' directory not found. Did the build fail?");
   process.exit(1);
 }
 
+// Verify index.html is at the root of the export (required by Capgo)
+if (!fs.existsSync(path.join(outDir, 'index.html'))) {
+  console.error("❌ Error: 'out/index.html' not found. The Capgo updater requires index.html at the zip root.");
+  process.exit(1);
+}
+
+// ── 3. Zip the out folder ──────────────────────────────────────────────────
+const zipPath = path.join(mobileDir, 'update.zip');
+
 await new Promise((resolve, reject) => {
   console.log(`📦 Zipping ${outDir} to update.zip...`);
   const output = fs.createWriteStream(zipPath);
-  const archive = archiver('zip', { zlib: { level: 9 } });
+  const archive = new ZipArchive({ zlib: { level: 9 } });
 
   output.on('close', resolve);
   archive.on('error', reject);
 
   archive.pipe(output);
-  archive.directory(outDir, false);
+  archive.directory(outDir, false); // false = no wrapping parent directory
   archive.finalize();
 });
 console.log(`✅ Zipped successfully.`);
 
-// 3. Create GitHub Release
+// ── 4. Compute SHA256 checksum (REQUIRED by @capgo/capacitor-updater v7) ──
+const zipBuffer = fs.readFileSync(zipPath);
+const checksum = crypto.createHash('sha256').update(zipBuffer).digest('hex');
+console.log(`🔒 SHA256 checksum: ${checksum}`);
+
+// ── 5. Create GitHub Release ───────────────────────────────────────────────
 console.log(`🚀 Creating GitHub Release v${newVersion}...`);
 const tag = `ota-v${newVersion}`;
 
@@ -87,12 +105,11 @@ if (!releaseRes.ok) {
 }
 
 const releaseData = await releaseRes.json();
-const uploadUrlTemplate = releaseData.upload_url; 
+const uploadUrlTemplate = releaseData.upload_url;
 const uploadUrl = uploadUrlTemplate.replace('{?name,label}', '?name=update.zip');
 
-// 4. Upload zip asset
+// ── 6. Upload zip asset ────────────────────────────────────────────────────
 console.log(`📤 Uploading update.zip to GitHub Release asset...`);
-const zipBuffer = fs.readFileSync(zipPath);
 
 const uploadRes = await fetch(uploadUrl, {
   method: 'POST',
@@ -115,7 +132,14 @@ const assetData = await uploadRes.json();
 const assetDownloadUrl = assetData.browser_download_url;
 console.log(`✅ Uploaded successfully! URL: ${assetDownloadUrl}`);
 
-// 5. Update latest.json in web backend
+// ── 7. Update latest.json in web backend ───────────────────────────────────
+// This file is served by Vercel at: https://services.townlinkglobal.com/ota/latest.json
+// The Capgo plugin fetches this on every app launch to check for updates.
+//
+// Required fields for @capgo/capacitor-updater v7 self-hosted mode:
+//   - version  (semver string)
+//   - url      (direct HTTPS link to the .zip bundle)
+//   - checksum (SHA256 hex digest of the .zip file)
 const webOtaDir = path.join(mobileDir, '..', 'web', 'public', 'ota');
 if (!fs.existsSync(webOtaDir)) {
   fs.mkdirSync(webOtaDir, { recursive: true });
@@ -124,13 +148,22 @@ if (!fs.existsSync(webOtaDir)) {
 const latestJsonPath = path.join(webOtaDir, 'latest.json');
 const latestJson = {
   version: newVersion,
-  url: assetDownloadUrl
+  url: assetDownloadUrl,
+  checksum: checksum
 };
 
 fs.writeFileSync(latestJsonPath, JSON.stringify(latestJson, null, 2) + '\n');
 console.log(`✅ Updated apps/web/public/ota/latest.json`);
 
-// Clean up local zip
+// ── 8. Clean up ────────────────────────────────────────────────────────────
 fs.unlinkSync(zipPath);
-console.log(`🎉 OTA Push Complete! Your Next.js backend is ready.`);
-console.log(`👉 Next steps: Commit the changes and push to GitHub so Vercel can host the new latest.json file.`);
+console.log('');
+console.log(`🎉 OTA Push Complete!`);
+console.log(`   Version:  ${newVersion}`);
+console.log(`   Tag:      ${tag}`);
+console.log(`   Checksum: ${checksum}`);
+console.log('');
+console.log(`👉 Next steps:`);
+console.log(`   1. git add -A && git commit -m "ota: v${newVersion}"`);
+console.log(`   2. git push`);
+console.log(`   Vercel will deploy the updated latest.json. Users get the update on next app launch.`);
