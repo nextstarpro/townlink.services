@@ -9,8 +9,7 @@ Welcome to the **TownLink Services** monorepo workspace. This project utilizes a
 ```
 ├── apps/
 │   ├── web/          # Next.js 16 SSR Marketing & Web App (Port 3000)
-│   ├── mobile/       # Next.js 16 Static Export + Capacitor Mobile Shell (Port 3001)
-│   └── functions/    # Netlify Serverless API Functions backend
+│   └── mobile/       # Next.js 16 Static Export + Capacitor Mobile Shell (Port 3001)
 ├── packages/
 │   ├── core/         # Constants, Ghana Formatters, Shared Interfaces
 │   ├── ui/           # DM Sans Design Tokens, Brand Buttons, Inputs & Hooks
@@ -39,8 +38,6 @@ Duplicate the configuration templates in each app space. Create real `.env` file
   * Copy [apps/web/.env.example](file:///d:/WorkSpace/new-project/apps/web/.env.example) to `apps/web/.env`
 * **Mobile Application:**
   * Copy [apps/mobile/.env.example](file:///d:/WorkSpace/new-project/apps/mobile/.env.example) to `apps/mobile/.env`
-* **Netlify API Serverless Functions:**
-  * Copy [apps/functions/.env.example](file:///d:/WorkSpace/new-project/apps/functions/.env.example) to `apps/functions/.env`
 
 ---
 
