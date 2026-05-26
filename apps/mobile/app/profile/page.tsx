@@ -96,7 +96,7 @@ const selectClass = (hasError: boolean) =>
 /* ────────────────────────────── MAIN COMPONENT ────────────────────────────── */
 export default function MobileProfile() {
   const [token, setToken] = useState<string | null>(null);
-  const [profile, setProfile] = useState<Record<string, string | boolean | null> | null>(null);
+  const [profile, setProfile] = useState<Record<string, string | boolean | null | string[]> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Registration wizard

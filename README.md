@@ -85,9 +85,20 @@ npx cap sync android
 3. Choose the directory: `apps/mobile/android`.
 4. Press the **Run** button to compile the debug APK and load it onto your physical device.
 
-### 4. Over-The-Air Sandbox Pushes (Capgo OTA)
-After the base APK is running on a device, you do not need to compile via Android Studio again unless you add a native package. Run the sandbox OTA upload to test UI changes instantly:
-```bash
-pnpm mobile:sandbox
-```
-This pushes your latest build state to Capgo Cloud's `development` track immediately.
+### 4. Over-The-Air (OTA) Updates (Free Custom Pipeline)
+We have implemented a custom 100% free OTA update pipeline that completely bypasses Capgo Cloud. This prevents repository bloat by utilizing GitHub Releases as the storage host, while the Next.js web backend serves the `latest.json` configuration file.
+
+**Prerequisite:** Ensure you have added a Fine-Grained GitHub Personal Access Token (with `Contents: Read and Write` permissions on this repository) to `apps/mobile/.env` as `GITHUB_TOKEN=github_pat_...`.
+
+**To push a live update to all users' phones without Google Play Store review:**
+1. Navigate to the mobile app directory:
+   ```bash
+   cd apps/mobile
+   ```
+2. Trigger the automated push:
+   ```bash
+   pnpm ota:push
+   ```
+   *This command automatically bumps the version, builds the Next.js static export, zips the assets, and uploads the bundle directly to a GitHub Release as a deployment asset.*
+3. Commit and push your changes to GitHub as normal.
+   *Vercel will deploy the updated `apps/web/public/ota/latest.json` file. The mobile apps will query this endpoint on their next launch and seamlessly download the new update from the GitHub server.*

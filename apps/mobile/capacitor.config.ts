@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.townlink.app",
+  appId: "com.townLink.app",
   appName: "TownLink",
   webDir: "out",
   server: {
@@ -13,6 +13,7 @@ const config: CapacitorConfig = {
     },
     CapacitorUpdater: {
       autoUpdate: true,
+      updateUrl: "https://services.townlinkglobal.com/ota/latest.json"
     },
     SplashScreen: {
       launchAutoHide: true,

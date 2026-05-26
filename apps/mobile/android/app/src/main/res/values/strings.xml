@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">TownLink</string>
     <string name="title_activity_main">TownLink</string>
-    <string name="package_name">com.townlink.app</string>
-    <string name="custom_url_scheme">com.townlink.app</string>
+    <string name="package_name">com.townLink.app</string>
+    <string name="custom_url_scheme">com.townLink.app</string>
 </resources>
