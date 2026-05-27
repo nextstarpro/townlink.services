@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
         ...cleanFields,
         'Status':              newStatus,
         'Verified':            newVerified,
-        'Verification method': 'Self-submitted via townlink.app'
+        'Verification method': 'Self-submitted via services.townlinkglobal.com'
       });
       recordId = updated.id;
     } else {
@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
           ...cleanFields,
           'Status':              'Pending',
           'Verified':            false,
-          'Verification method': 'Self-submitted via townlink.app'
+          'Verification method': 'Self-submitted via services.townlinkglobal.com'
         }
       }]);
       recordId = created[0].id;
