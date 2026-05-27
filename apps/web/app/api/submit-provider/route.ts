@@ -49,7 +49,8 @@ export async function POST(req: NextRequest) {
 
     // SERVER-SIDE duplicate check — never trust isReturning/existingRecordId from client
     const phone = cleanFields['Phone / WhatsApp'];
-    let resolvedRecordId = null;
+    let resolvedRecordId: string | null = null;
+    let existingFields: any = null;
 
     if (phone) {
       const existing = await base('Service Providers')
@@ -61,6 +62,7 @@ export async function POST(req: NextRequest) {
 
       if (existing.length > 0) {
         resolvedRecordId = existing[0].id;
+        existingFields = existing[0].fields;
       }
     }
 
@@ -69,22 +71,48 @@ export async function POST(req: NextRequest) {
     let recordId;
 
     if (isActuallyReturning) {
-      // Existing provider updating their profile
+      // ── Check current status and Ghana Card identity before deciding what to write ──
+      const currentStatus   = existingFields['Status']                 || 'Pending';
+      const currentVerified = existingFields['Verified']               || false;
+      const currentCardNo   = existingFields['Ghana Card Number']      || '';
+      const currentExpiry   = existingFields['Ghana Card Expiry Date'] || '';
+
+      const incomingCardNo  = cleanFields['Ghana Card Number']         || '';
+      const incomingExpiry  = cleanFields['Ghana Card Expiry Date']    || '';
+
+      // Identity changed = new Ghana Card number OR new expiry date (non-empty and different)
+      const cardNumberChanged = incomingCardNo && incomingCardNo !== currentCardNo;
+      const cardExpiryChanged = incomingExpiry && incomingExpiry !== currentExpiry;
+      const identityChanged   = cardNumberChanged || cardExpiryChanged;
+
+      let newStatus: string;
+      let newVerified: boolean;
+
+      if (currentStatus === 'Active' && !identityChanged) {
+        // Active provider, no Ghana Card change — preserve their status and verified badge
+        newStatus   = currentStatus;
+        newVerified = currentVerified;
+      } else {
+        // Either not Active yet, or Ghana Card identity changed — trigger re-verification
+        newStatus   = 'Pending';
+        newVerified = false;
+      }
+
       const updated = await base('Service Providers').update(resolvedRecordId as string, {
         ...cleanFields,
-        'Status':              'Pending',
-        'Verified':            false,
-        'Verification method': 'Self-submitted via services.townlinkglobal.com'
+        'Status':              newStatus,
+        'Verified':            newVerified,
+        'Verification method': 'Self-submitted via townlink.app'
       });
       recordId = updated.id;
     } else {
-      // Brand new registration
+      // Brand new registration — always starts as Pending
       const created = await base('Service Providers').create([{
         fields: {
           ...cleanFields,
           'Status':              'Pending',
           'Verified':            false,
-          'Verification method': 'Self-submitted via services.townlinkglobal.com'
+          'Verification method': 'Self-submitted via townlink.app'
         }
       }]);
       recordId = created[0].id;
@@ -96,12 +124,19 @@ export async function POST(req: NextRequest) {
 
     let smsMessage;
 
-    if (isActuallyReturning) {
-      // Profile update confirmation — short and clear
-      smsMessage = `Hi ${name} 👋\n\nYour TownLink Services profile has been updated and is under review.\n\nWe'll notify you once your changes are live. Questions? WhatsApp us: +233 27 487 0179\n\n– TownLink Team`;
-    } else {
+    if (!isActuallyReturning) {
       // New registration — full welcome with Ghana Card request
       smsMessage = `Hello ${name} 👋\n\nThank you for registering with *TownLink Services*!\n\nYour listing is under review. To receive your ✅ *Verified* badge, please send a clear photo of your Ghana Card (front and back) to our WhatsApp: *+233 27 487 0179*\n\nWe will review it and confirm your listing within 24 hours.\n\n– TownLink Team`;
+    } else if (
+      existingFields['Status'] === 'Active' &&
+      !(cleanFields['Ghana Card Number'] && cleanFields['Ghana Card Number'] !== existingFields['Ghana Card Number']) &&
+      !(cleanFields['Ghana Card Expiry Date'] && cleanFields['Ghana Card Expiry Date'] !== existingFields['Ghana Card Expiry Date'])
+    ) {
+      // Active provider, non-critical update — no re-review needed
+      smsMessage = `Hi ${name} 👋\n\nYour TownLink Services profile has been updated successfully. No further action needed.\n\nQuestions? WhatsApp us: +233 27 487 0179\n\n– TownLink Team`;
+    } else {
+      // Returning provider whose card changed or was previously Pending/Suspended
+      smsMessage = `Hi ${name} 👋\n\nYour TownLink Services profile has been updated and is under review.\n\nWe'll notify you once your changes are live. Questions? WhatsApp us: +233 27 487 0179\n\n– TownLink Team`;
     }
 
     if (BMS_API_KEY) {
