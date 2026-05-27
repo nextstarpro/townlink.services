@@ -4,7 +4,7 @@ import Airtable from 'airtable';
 export async function POST(req: NextRequest) {
   try {
     const payload = await req.json().catch(() => ({}));
-    const { isReturning, existingRecordId, ...fields } = payload;
+    const { isReturning, existingRecordId, id, ...fields } = payload;
 
     // Normalise phone — strip + prefix for consistent storage
     if (fields['Phone / WhatsApp']) {
