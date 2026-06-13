@@ -22,7 +22,7 @@
     "@capgo/capacitor-updater": "^7",
     "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@fontsource/mona-sans": "^5.2.8",
-    "@serwist/next": "^9.5.11",
+    "@serwist/next": "^9.5.10",
     "@townlink/api-client": "workspace:*",
     "@townlink/core": "workspace:*",
     "@townlink/ui": "workspace:*",
@@ -32,7 +32,7 @@
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "serwist": "^9.5.11",
+    "serwist": "^9.5.10",
     "zod": "^3.23.0"
   },
   "devDependencies": {

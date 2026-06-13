@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.townlink.app",
+  "applicationId": "com.townLink.app",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 8,
-      "versionName": "8.0",
+      "versionCode": 84,
+      "versionName": "8.4",
       "outputFile": "app-release.apk"
     }
   ],
