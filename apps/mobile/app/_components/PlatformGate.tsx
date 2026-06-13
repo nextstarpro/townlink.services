@@ -10,9 +10,6 @@ export function PlatformGate({ children }: { children: React.ReactNode }) {
   const [isIos, setIsIos] = useState(false);
   const [isIosSafari, setIsIosSafari] = useState(false);
 
-  // DEVELOPMENT FLAG: Set to true to bypass the gateway entirely
-  const BYPASS_GATE = true;
-
   useEffect(() => {
     try {
       // 1. Check if we are running in Capacitor Native Android/iOS App
@@ -33,8 +30,8 @@ export function PlatformGate({ children }: { children: React.ReactNode }) {
       const isSafari = isAppleDevice && /safari/i.test(userAgent) && !/crios|fxios|opr|edgios|fbav|instagram|twitter/i.test(userAgent);
       setIsIosSafari(isSafari);
 
-      if (isNative || isStandalone || BYPASS_GATE) {
-        // If native, installed, or dev flag is true, allow the app to render!
+      if (isNative || isStandalone) {
+        // If native or installed, allow the app to render!
         setShowApp(true);
       }
     } catch (e) {

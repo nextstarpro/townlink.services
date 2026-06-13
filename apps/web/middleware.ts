@@ -5,7 +5,7 @@ const allowedOrigins = [
   "https://ios.townlink.app",
   "capacitor://localhost",
   "http://localhost:3001",
-  "https://mobile-townlink.vercel.app",
+  "https://townlinkmobile.vercel.app",
 ];
 
 export function middleware(request: NextRequest) {
