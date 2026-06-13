@@ -61,7 +61,7 @@ const stepMeta = [
   { step: 5, label: "Review & submit", pct: 100 },
 ];
 
-export function RegistrationWizard() {
+export function RegistrationWizard({ onLogin }: { onLogin?: (token: string, record?: any) => void } = {}) {
   const [step, setStep] = useState<number>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<RegistrationFormData>(initialFormData);
@@ -103,7 +103,7 @@ export function RegistrationWizard() {
       {/* Step Content Area */}
       <div className="p-6 pt-2">
         {step === 1 && <Step1Phone data={formData} updateData={updateFormData} onNext={() => setStep(1.5)} />}
-        {step === 1.5 && <Step1bOTP data={formData} updateData={updateFormData} onNext={() => setStep(2)} onResend={() => setStep(1)} />}
+        {step === 1.5 && <Step1bOTP data={formData} updateData={updateFormData} onNext={() => setStep(2)} onResend={() => setStep(1)} onLogin={onLogin} />}
         {step === 2 && <Step2Details data={formData} updateData={updateFormData} onNext={() => setStep(3)} />}
         {step === 3 && <Step3Services data={formData} updateData={updateFormData} onNext={() => setStep(4)} onBack={() => setStep(2)} />}
         {step === 4 && <Step4Rates data={formData} updateData={updateFormData} onNext={() => setStep(5)} onBack={() => setStep(3)} />}

@@ -25,13 +25,19 @@ Welcome to the **TownLink Services** monorepo workspace. This project utilizes a
 
 Follow these manual steps strictly to configure the workspace environment successfully.
 
-### 1. Install Workspace Dependencies
+### 1. Sync the Codebase
+Before installing dependencies, ensure your local repository is up to date:
+```bash
+git pull origin main
+```
+
+### 2. Install Workspace Dependencies
 Ensure you have `pnpm` v10+ installed globally. Run the following command from the repository root:
 ```bash
 pnpm install
 ```
 
-### 2. Environment Variables Configuration
+### 3. Environment Variables Configuration
 Duplicate the configuration templates in each app space. Create real `.env` files by copying the template profiles:
 
 * **Web Application:**

@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
       .firstPage();
 
     if (existing.length > 0) {
-      record = existing[0].fields;
+      record = { id: existing[0].id, ...existing[0].fields };
     }
 
     return NextResponse.json({ success: true, record });

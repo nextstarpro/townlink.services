@@ -130,7 +130,7 @@ export function MidPhoneCTA() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <a href="#" className="w-full sm:w-auto">
+            <a href="https://ios.townlink.app" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <AppButton variant="primary" size="lg" className="w-full px-8 bg-[#10b981] hover:bg-[#059669] border-none text-white font-semibold">
                 Download for iOS
               </AppButton>

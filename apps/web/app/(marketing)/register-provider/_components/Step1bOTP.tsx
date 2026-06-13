@@ -9,9 +9,10 @@ type Props = {
   updateData: (d: Partial<RegistrationFormData>) => void;
   onNext: () => void;
   onResend: () => void;
+  onLogin?: (token: string, record?: any) => void;
 };
 
-export function Step1bOTP({ data, updateData, onNext, onResend }: Props) {
+export function Step1bOTP({ data, updateData, onNext, onResend, onLogin }: Props) {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
@@ -82,6 +83,10 @@ export function Step1bOTP({ data, updateData, onNext, onResend }: Props) {
             prefill.advanceRequired = "No";
           }
           updateData(prefill);
+          if (onLogin) {
+            onLogin(r.id || data.verifyToken, r);
+            return;
+          }
         }
         onNext();
       } else {
