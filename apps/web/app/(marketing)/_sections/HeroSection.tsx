@@ -25,7 +25,7 @@ export function HeroSection() {
           </a>
           <a href="/register-provider" className="w-full sm:w-auto">
             <AppButton variant="secondary" size="lg" className="w-full">
-              Become a Provider
+              Register as Provider
             </AppButton>
           </a>
         </div>

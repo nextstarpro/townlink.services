@@ -7,6 +7,7 @@ export const ROUTES = {
   BLOG: "/blog",
   PRICING: "/pricing",
   CONTACT: "/contact",
+  PROVIDER_FAQ: "/provider-faq",
 
   // Auth
   LOGIN: "/login",

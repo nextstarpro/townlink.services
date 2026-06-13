@@ -49,7 +49,7 @@ export function MarketingFooter() {
         <div className="flex gap-4">
           <a href="https://www.facebook.com/profile.php?id=61575371263075" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Facebook</a>
           <a href="https://www.instagram.com/townlink.app" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">Instagram</a>
-          <a href="#" className="hover:text-brand-primary transition-colors">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/townlink-app/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">LinkedIn</a>
         </div>
       </div>
     </footer>

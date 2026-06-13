@@ -29,7 +29,10 @@ export function StatsSection() {
           {/* Abstract dark shapes for texture */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
           
-          <div className="text-3xl mb-4 relative z-10">🛠️</div>
+          <div className="flex items-center gap-3 mb-4 relative z-10">
+            <div className="text-3xl">🛠️</div>
+            <span className="bg-[#FCD116] text-[#0A363B] text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider shadow-sm">FREE TO LIST</span>
+          </div>
           <h3 className="font-serif text-2xl md:text-3xl text-white mb-3 relative z-10">I'm a provider</h3>
           <p className="text-white/70 text-sm md:text-base mb-8 max-w-md leading-relaxed relative z-10">
             List your services for free and get found by clients at home and in the diaspora. Build your reputation, and grow your business.

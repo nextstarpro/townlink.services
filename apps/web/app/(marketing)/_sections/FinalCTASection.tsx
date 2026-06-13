@@ -50,12 +50,12 @@ export function FinalCTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/providers">
               <AppButton variant="primary" size="lg" className="px-8 bg-[#10b981] hover:bg-[#059669] border-none text-white font-semibold">
-                Find Providers &rarr;
+                Browse Providers &rarr;
               </AppButton>
             </a>
             <a href="/register-provider">
               <AppButton variant="secondary" size="lg" className="px-8 border-white/30 text-white hover:bg-white/10 hover:border-white transition-all bg-transparent font-semibold">
-                Become a Provider
+                Register my business
               </AppButton>
             </a>
           </div>
