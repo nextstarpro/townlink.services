@@ -2,18 +2,17 @@
 
 import React from "react";
 
+import Image from "next/image";
+
 export function LegalHeader() {
   return (
     <header className="bg-brand-dark px-6 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 text-white no-underline font-serif text-xl font-bold">
-          {/* SVG logo icon matching the one in the HTML */}
-          <div className="w-7 h-7 bg-white rounded-md flex items-center justify-center shrink-0">
-             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand-primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-             </svg>
+        <a href="/" className="flex items-center gap-3 text-white no-underline text-2xl font-bold tracking-tight">
+          <div className="relative w-8 h-8 overflow-hidden rounded-full bg-white flex items-center justify-center p-0.5">
+            <Image src="/icon.png" alt="TownLink" fill className="object-cover rounded-full" sizes="32px" />
           </div>
-          <span>TownLink <span className="text-[#c9902a]">Services</span></span>
+          <span>TownLink</span>
         </a>
         
         <a href="/" className="text-white/80 hover:text-white text-sm font-medium transition-colors flex items-center gap-2">
