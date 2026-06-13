@@ -8,6 +8,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "TownLink",
   description: "Ghana's Trusted Service Directory",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export const viewport: Viewport = {
